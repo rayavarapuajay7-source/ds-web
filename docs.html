@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Install Kestrel KV, connect a client, and start using the in-memory key-value API.">
+  <title>Documentation — Kestrel KV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css"><script src="assets/js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="wordmark" href="index.html" aria-label="Kestrel KV home"><span class="brand-mark">K</span><span>kestrel<span class="wordmark-light">kv</span></span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation"><span></span><span></span></button><nav class="primary-nav" id="primary-nav" aria-label="Main navigation"><a href="index.html">Overview</a><a href="architecture.html">Architecture</a><a href="benchmarks.html">Benchmarks</a><a aria-current="page" href="docs.html">Docs</a></nav><a class="header-link" href="docs.html#quickstart">Get started <span aria-hidden="true">↗</span></a></header>
+  <main id="main">
+    <section class="page-hero page-wrap docs-hero"><p class="eyebrow">03 / DOCUMENTATION</p><h1>From zero<br>to <span>SET.</span></h1><p class="page-lede">Get a local instance running, connect with the client you already use, and ship your first key.</p><div class="hero-rule"><span>QUICKSTART</span><span>ABOUT 2 MINUTES</span></div></section>
+    <section class="docs-layout page-wrap">
+      <aside class="docs-sidebar" aria-label="Documentation sections"><span class="eyebrow">ON THIS PAGE</span><a class="docs-current" href="#quickstart">Quickstart</a><a href="#client">Client example</a><a href="#commands">Commands</a><a href="#operations">Operations</a><a href="#benchmarking">Benchmarking</a></aside>
+      <div class="docs-content">
+        <section class="doc-section" id="quickstart"><p class="eyebrow">01 / INSTALL</p><h2>Start the server.</h2><p>Run Kestrel locally with Docker. The default port is <code>6380</code>; data is held in memory and is cleared when the process exits.</p><div class="code-window"><div class="code-head"><span><i></i><i></i><i></i> TERMINAL</span><button class="copy-button" type="button" data-copy="docker run --rm -p 6380:6380 ghcr.io/kestrel-kv/kestrel:latest" aria-label="Copy Docker command">Copy</button></div><pre><code>docker run --rm -p 6380:6380 ghcr.io/kestrel-kv/kestrel:latest</code></pre></div><p class="doc-caution"><strong>Note:</strong> This example is for local development. Configure access controls and memory limits before exposing an instance to a network.</p></section>
+        <section class="doc-section" id="client"><p class="eyebrow">02 / CONNECT</p><h2>Use a familiar client.</h2><p>Kestrel speaks a Redis-compatible protocol. Pick a language to see a tiny connection example.</p><div class="code-window client-window"><div class="client-tabs" role="tablist" aria-label="Client language"><button class="client-tab" id="tab-node" type="button" role="tab" aria-selected="true" aria-controls="client-code" data-language="node">Node.js</button><button class="client-tab" id="tab-python" type="button" role="tab" aria-selected="false" aria-controls="client-code" data-language="python">Python</button></div><div class="code-head"><span id="code-language-label">JAVASCRIPT</span><button class="copy-button" type="button" data-copy-target="client-code" aria-label="Copy client example">Copy</button></div><pre id="client-code" role="tabpanel" aria-labelledby="tab-node"><code>import { createClient } from 'redis';
+
+const client = createClient({ url: 'redis://localhost:6380' });
+await client.connect();
+
+await client.set('greeting', 'hello, kestrel');
+console.log(await client.get('greeting'));</code></pre></div></section>
+        <section class="doc-section" id="commands"><p class="eyebrow">03 / COMMANDS</p><h2>A small, useful core.</h2><div class="command-list"><div><code>GET key</code><span>Read a string value.</span></div><div><code>SET key value</code><span>Write or replace a value.</span></div><div><code>DEL key</code><span>Remove a key.</span></div><div><code>EXPIRE key seconds</code><span>Set a key's time to live.</span></div><div><code>TTL key</code><span>Inspect remaining lifetime.</span></div></div></section>
+        <section class="doc-section" id="operations"><p class="eyebrow">04 / OPERATE</p><h2>Know your limits.</h2><p>In-memory storage requires an explicit memory budget. Track resident memory alongside request latency, set a container limit, and leave headroom for the process and client buffers.</p><div class="doc-callout"><strong>Not a durable database.</strong><span>Kestrel stores data in memory. Treat the process as ephemeral unless you have configured and verified a separate persistence strategy.</span></div></section>
+        <section class="doc-section" id="benchmarking"><p class="eyebrow">05 / MEASURE</p><h2>Test your workload.</h2><p>Run benchmarks from a separate client process and use the same machine, network path, value size, and concurrency as your application. Always compare tail latency as well as throughput.</p><a class="section-link" href="benchmarks.html">Review the reference profile <span aria-hidden="true">↗</span></a></section>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="page-wrap footer-inner"><a class="wordmark footer-brand" href="index.html"><span class="brand-mark">K</span><span>kestrel<span class="wordmark-light">kv</span></span></a><span class="footer-note">An in-memory data layer for the impatient.</span><nav aria-label="Footer navigation"><a href="architecture.html">Architecture</a><a href="benchmarks.html">Benchmarks</a><a href="docs.html">Documentation</a></nav><span class="footer-copy">© 2026 KESTREL KV</span></div></footer>
+</body>
+</html>
